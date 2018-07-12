@@ -1009,6 +1009,7 @@ function renderBountyRowsFromResults(results) {
     }
 
     result['hidden'] = (i > 4);
+    result['is_profile_page'] = window.location.pathname === '/profile/';
     html += tmpl.render(result);
   }
   return html;
@@ -1057,4 +1058,20 @@ function fetchBountiesAndAddToList(params, target, limit) {
       console.log($(target).parent().closest('.container').addClass('hidden'));
     }
   });
+}
+
+function toggleExpandableBounty(evt) {
+  evt.preventDefault();
+
+  var container = evt.target.parentElement.parentElement.querySelector('.expandable');
+
+  if (container) {
+    if (container.id === 'expanded') {
+      container.id = '';
+      evt.target.id = '';
+      return;
+    }
+    container.id = 'expanded';
+    evt.target.id = 'expanded';
+  }
 }
