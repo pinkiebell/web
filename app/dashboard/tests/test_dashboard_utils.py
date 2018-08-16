@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 from dashboard.utils import clean_bounty_url, get_ordinal_repr, get_web3, humanize_event_name
 from test_plus.test import TestCase
+from web3 import WebsocketProvider
 from web3.main import Web3
 from web3.providers.rpc import HTTPProvider
 
@@ -34,8 +35,8 @@ class DashboardUtilsTest(TestCase):
             web3_provider = get_web3(network)
             assert isinstance(web3_provider, Web3)
             assert len(web3_provider.providers) == 1
-            assert isinstance(web3_provider.providers[0], HTTPProvider)
-            assert web3_provider.providers[0].endpoint_uri == f'https://{network}.infura.io'
+            assert isinstance(web3_provider.providers[0], WebsocketProvider)
+            assert web3_provider.providers[0].endpoint_uri == f'wss://{network}.infura.io/_ws'
 
     @staticmethod
     def test_get_ordinal_repr():

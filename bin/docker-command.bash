@@ -37,4 +37,8 @@ if [ "$FORCE_GET_PRICES" = "on" ]; then
     python manage.py get_prices
 fi
 
+if [ "$TEST_STAGING" = "on" ]; then
+   python manage.py sync_listener mainnet 1 &
+fi
+
 python manage.py "$WEB_WORKER" "$WEB_INTERFACE":"$WEB_PORT" --extra-file /code/app/app/.env --nopin
